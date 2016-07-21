@@ -5,11 +5,11 @@
 
     <interceptors>
         <class>at.irian.cdiatwork.ideafork.core.impl.monitoring.MonitoredInterceptor</class>
+        <class>at.irian.cdiatwork.ideafork.core.impl.change.EntityProcessorInterceptor</class>
     </interceptors>
 
     <decorators>
         <class>at.irian.cdiatwork.ideafork.core.impl.repository.decorator.idea.IdeaRepositoryDecorator</class>
-        <class>at.irian.cdiatwork.ideafork.core.impl.repository.decorator.role.UserRepositoryDecorator</class>
         <class>at.irian.cdiatwork.ideafork.core.impl.repository.decorator.change.EntityChangeRepositoryDecorator</class>
     </decorators>
 
