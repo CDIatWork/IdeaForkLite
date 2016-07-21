@@ -31,13 +31,6 @@ public abstract class BaseEntity implements Serializable {
         return version == null;
     }
 
-    public void increaseVersion() {
-        if (version == null) {
-            version = 0L;
-        } else {
-            version++;
-        }
-    }
 
     /*
      * generated

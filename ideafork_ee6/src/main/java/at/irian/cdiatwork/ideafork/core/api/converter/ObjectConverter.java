@@ -5,13 +5,6 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ObjectConverter {
-    public <T> T toObject(String value, Class<T> targetType) {
-        try {
-            return new ObjectMapper().readValue(value, targetType);
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
-    }
 
     public String toString(Object entity) {
         return toString(entity, null);

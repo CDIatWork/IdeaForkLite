@@ -12,7 +12,6 @@
     <version>1.0.0</version>
 
     <modules>
-        <module>ideafork_core</module>
         <module>ideafork_ee6</module>
     </modules>
 </project>
