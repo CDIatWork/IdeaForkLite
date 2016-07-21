@@ -1,7 +1,6 @@
 package at.irian.cdiatwork.ideafork.ee.backend.service;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
-import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
 import at.irian.cdiatwork.ideafork.ee.frontend.servlet.ImportSummary;
 
@@ -20,7 +19,7 @@ public class FileUploadService {
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     @Inject
-    private IdeaManager ideaManager;
+    private IdeaService ideaService;
 
     @Inject
     private ImportSummary importSummary;
@@ -40,7 +39,7 @@ public class FileUploadService {
 
                 while (ideaToImportString != null) {
                     try {
-                        Idea importedIdea = ideaManager.importIdea(user, ideaToImportString);
+                        Idea importedIdea = ideaService.importIdea(user, ideaToImportString);
                         importSummary.addImportedIdea(importedIdea);
                     } catch (Exception e) {
                         importSummary.addFailedImport(ideaToImportString);

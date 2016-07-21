@@ -35,13 +35,13 @@ public class Idea extends BaseEntity {
         //needed for data-import
     }
 
-    Idea(String topic, String category, User author) {
+    public Idea(String topic, String category, User author) {
         this.topic = topic;
         this.category = category;
         this.author = author;
     }
 
-    Idea(Idea baseIdea, User author) {
+    public Idea(Idea baseIdea, User author) {
         this(baseIdea.getTopic(), baseIdea.getCategory(), author);
         this.description = baseIdea.getDescription();
         this.baseIdeaId = baseIdea.id;

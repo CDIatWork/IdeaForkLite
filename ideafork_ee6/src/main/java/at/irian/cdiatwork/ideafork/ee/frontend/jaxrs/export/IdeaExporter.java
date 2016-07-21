@@ -1,9 +1,9 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jaxrs.export;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
-import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
-import at.irian.cdiatwork.ideafork.core.api.domain.role.UserManager;
+import at.irian.cdiatwork.ideafork.ee.backend.service.IdeaService;
+import at.irian.cdiatwork.ideafork.ee.backend.service.UserService;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.shared.ActiveUserHolder;
 import org.apache.deltaspike.core.api.common.DeltaSpike;
@@ -17,7 +17,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
@@ -31,10 +30,10 @@ public class IdeaExporter {
     private static final String FILE_EXTENSION = ".json.txt";
 
     @Inject
-    private IdeaManager ideaManager;
+    private IdeaService ideaService;
 
     @Inject
-    private UserManager userManager;
+    private UserService userService;
 
     @Inject
     private ActiveUserHolder userHolder;
@@ -61,7 +60,7 @@ public class IdeaExporter {
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
             }
         }
-        return Response.ok(ideaManager.loadAllOfAuthor(authenticatedUser))
+        return Response.ok(ideaService.loadAllOfAuthor(authenticatedUser))
                 .header(CONTENT_DISPOSITION, CONTENT_DISPOSITION_VALUE_PREFIX + FILE_EXTENSION)
                 .build();
     }
@@ -72,8 +71,8 @@ public class IdeaExporter {
         lazyInit();
 
         response.setHeader(CONTENT_DISPOSITION, CONTENT_DISPOSITION_VALUE_PREFIX + "_of_" + nickName + FILE_EXTENSION);
-        User loadedUser = userManager.loadByNickName(nickName);
-        return ideaManager.loadAllOfAuthor(loadedUser);
+        User loadedUser = userService.loadByNickName(nickName);
+        return ideaService.loadAllOfAuthor(loadedUser);
     }
 
     /*
@@ -82,13 +81,13 @@ public class IdeaExporter {
     */
 
     private void lazyInit() {
-        if (ideaManager == null) {
+        if (ideaService == null) {
             init();
         }
     }
 
     private synchronized void init() {
-        if (ideaManager == null) {
+        if (ideaService == null) {
             BeanProvider.injectFields(this);
         }
     }

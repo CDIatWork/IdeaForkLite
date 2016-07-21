@@ -1,7 +1,7 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.idea;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
-import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaManager;
+import at.irian.cdiatwork.ideafork.ee.backend.service.IdeaService;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.ViewController;
 
@@ -12,7 +12,7 @@ import java.util.Stack;
 @ViewController
 public class IdeaDetailsViewCtrl implements Serializable {
     @Inject
-    private IdeaManager ideaManager;
+    private IdeaService ideaService;
 
     private Idea currentIdea;
 
@@ -25,7 +25,7 @@ public class IdeaDetailsViewCtrl implements Serializable {
 
     public void showOriginal() {
         displayedIdeas.push(currentIdea);
-        currentIdea = ideaManager.loadById(currentIdea.getBaseIdeaId());
+        currentIdea = ideaService.loadById(currentIdea.getBaseIdeaId());
     }
 
     public Class<? extends Pages.Idea> back() {
