@@ -90,7 +90,7 @@ public class IdeaForkBaseFlowTest {
         newRequest();
 
         navigationResult = navigationController.toIdeaPromotionWizard();
-        Assert.assertEquals(Pages.PromotionWizard.Step1.class, navigationResult);
+        Assert.assertEquals(Pages.Promotion.PromotionWizard.Step1.class, navigationResult);
 
         newRequest(); //simulates a redirect
 
@@ -107,7 +107,7 @@ public class IdeaForkBaseFlowTest {
         newRequest();
 
         navigationResult = promotionWizardCtrl.toStep2();
-        Assert.assertEquals(Pages.PromotionWizard.Step2.class, navigationResult);
+        Assert.assertEquals(Pages.Promotion.PromotionWizard.Step2.class, navigationResult);
 
         newRequest(); //simulates a redirect
 
@@ -117,7 +117,7 @@ public class IdeaForkBaseFlowTest {
 
         promotionWizardCtrl.getPromotionRequest().setDescription("promote it");
         navigationResult = promotionWizardCtrl.showConfirmation();
-        Assert.assertEquals(Pages.PromotionWizard.FinalStep.class, navigationResult);
+        Assert.assertEquals(Pages.Promotion.PromotionWizard.FinalStep.class, navigationResult);
 
         newRequest(); //simulates a redirect
 

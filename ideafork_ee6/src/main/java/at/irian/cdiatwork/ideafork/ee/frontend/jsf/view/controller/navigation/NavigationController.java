@@ -24,11 +24,11 @@ public class NavigationController {
         return Pages.User.Profile.class;
     }
 
-    public Class<? extends Pages.PromotionWizard> toIdeaPromotionWizard() {
-        return Pages.PromotionWizard.Step1.class;
+    public Class<? extends Pages.Promotion.PromotionWizard> toIdeaPromotionWizard() {
+        return Pages.Promotion.PromotionWizard.Step1.class;
     }
 
-    public Class<? extends Pages.PromotionSelectionArea> toPromoteableIdeaList() {
-        return Pages.PromotionSelectionArea.ListPromotions.class;
+    public Class<? extends Pages.Promotion> toPromoteableIdeaList() {
+        return Pages.Promotion.Selection.List.class;
     }
 }

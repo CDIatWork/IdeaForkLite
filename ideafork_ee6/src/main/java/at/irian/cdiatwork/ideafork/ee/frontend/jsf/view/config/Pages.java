@@ -58,46 +58,28 @@ public interface Pages extends ViewConfig {
         class Summary implements Import {}
     }
 
-    @Folder(name = "promotion")
-    @Wizard //all wizard-steps inherit this meta-data
-    interface PromotionWizard extends SecuredPages {
-        @EntryPoint
-        @ViewControllerRef(PromotionWizardCtrl.class)
-        class Step1 implements PromotionWizard {}
+    interface Promotion extends SecuredPages {
+        interface Selection extends Promotion {
+            @View(viewParams = INCLUDE)
+            @NavigationParameter(key = "searchHint", value = "*")
+            @ViewControllerRef(PromotionRequestListViewCtrl.class)
+            class List implements Selection {}
 
-        class Step2 implements PromotionWizard {}
+            @View(name = "promote")
+            class SelectPromotion implements Selection {}
+        }
 
-        @View(name = "summary")
-        class FinalStep implements PromotionWizard {}
-    }
+        @Folder(name = "wizard")
+        @Wizard //all wizard-steps inherit this meta-data
+        interface PromotionWizard extends Promotion {
+            @EntryPoint
+            @ViewControllerRef(PromotionWizardCtrl.class)
+            class Step1 implements PromotionWizard {}
 
-    @Folder(folderNameBuilder = PromotionSelectionArea.CustomFolderNameBuilder.class)
-    interface PromotionSelectionArea extends SecuredPages {
+            class Step2 implements PromotionWizard {}
 
-        @View(name = "list", viewParams = INCLUDE)
-        @NavigationParameter(key = "searchHint", value = "*")
-        @ViewControllerRef(PromotionRequestListViewCtrl.class)
-        class ListPromotions implements PromotionSelectionArea {}
-
-        @View(name = "promote")
-        class SelectPromotion implements PromotionSelectionArea {}
-
-        class CustomFolderNameBuilder extends Folder.DefaultFolderNameBuilder {
-            private boolean customPathUsed = false;
-
-            @Override
-            public String build(Folder folder, ViewConfigNode viewConfigNode) {
-                if (Pages.PromotionSelectionArea.class.equals(viewConfigNode.getSource())) {
-                    this.customPathUsed = true;
-                    return "/pages/promotion/selection";
-                }
-                return super.build(folder, viewConfigNode);
-            }
-
-            @Override
-            public boolean isDefaultValueReplaced() {
-                return super.isDefaultValueReplaced() || this.customPathUsed;
-            }
+            @View(name = "summary")
+            class FinalStep implements PromotionWizard {}
         }
     }
 }

@@ -63,12 +63,12 @@ public class PromotionWizardCtrl implements Serializable {
         rowClasses = rowClasses.substring(0, rowClasses.lastIndexOf(","));
     }
 
-    public Class<? extends Pages.PromotionWizard> toStep2() {
-        return Pages.PromotionWizard.Step2.class;
+    public Class<? extends Pages.Promotion.PromotionWizard> toStep2() {
+        return Pages.Promotion.PromotionWizard.Step2.class;
     }
 
-    public Class<? extends Pages.PromotionWizard> showConfirmation() {
-        return Pages.PromotionWizard.FinalStep.class;
+    public Class<? extends Pages.Promotion.PromotionWizard> showConfirmation() {
+        return Pages.Promotion.PromotionWizard.FinalStep.class;
     }
 
     public Class<? extends Pages> savePromotionRequest() {

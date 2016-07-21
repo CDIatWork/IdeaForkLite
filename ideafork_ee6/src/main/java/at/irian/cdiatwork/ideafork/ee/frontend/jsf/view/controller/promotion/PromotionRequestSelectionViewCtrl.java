@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Named
 @GroupedConversationScoped
-@ConversationGroup(Pages.PromotionSelectionArea.class)
+@ConversationGroup(Pages.Promotion.class)
 public class PromotionRequestSelectionViewCtrl implements Serializable {
 
     @Inject
@@ -24,13 +24,13 @@ public class PromotionRequestSelectionViewCtrl implements Serializable {
 
     private PromotionRequest selectedPromotionRequest;
 
-    public Class<? extends Pages.PromotionSelectionArea> showPromotionRequest(PromotionRequest promotionRequest) {
+    public Class<? extends Pages.Promotion> showPromotionRequest(PromotionRequest promotionRequest) {
         this.selectedPromotionRequest = promotionRequest;
-        return Pages.PromotionSelectionArea.SelectPromotion.class;
+        return Pages.Promotion.Selection.SelectPromotion.class;
     }
 
     public Class<? extends Pages> promote() {
-        conversationManager.closeConversationGroup(Pages.PromotionSelectionArea.class);
+        conversationManager.closeConversationGroup(Pages.Promotion.class);
         ideaService.promoteIdea(this.selectedPromotionRequest);
         return Pages.Index.class;
     }

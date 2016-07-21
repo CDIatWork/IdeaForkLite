@@ -16,7 +16,7 @@ import java.util.List;
 
 @Named
 @GroupedConversationScoped
-@ConversationGroup(Pages.PromotionSelectionArea.class)
+@ConversationGroup(Pages.Promotion.class)
 public class PromotionRequestListViewCtrl implements Serializable {
 
     @Inject
@@ -37,9 +37,9 @@ public class PromotionRequestListViewCtrl implements Serializable {
         foundPromotionRequests = ideaService.loadRecentIdeaPromotions(userHolder.getAuthenticatedUser(), searchHint);
     }
 
-    public Class<? extends Pages.PromotionSelectionArea> applyFilter() {
+    public Class<? extends Pages.Promotion.Selection> applyFilter() {
         navigationParameterContext.addPageParameter("searchHint", searchHint);
-        return Pages.PromotionSelectionArea.ListPromotions.class;
+        return Pages.Promotion.Selection.List.class;
     }
 
     /*
