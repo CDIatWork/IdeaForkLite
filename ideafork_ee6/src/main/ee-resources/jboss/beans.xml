@@ -10,7 +10,6 @@
        </interceptors>
 
        <decorators>
-              <class>at.irian.cdiatwork.ideafork.core.impl.repository.decorator.idea.IdeaRepositoryDecorator</class>
               <class>at.irian.cdiatwork.ideafork.core.impl.repository.decorator.change.EntityChangeRepositoryDecorator</class>
        </decorators>
 

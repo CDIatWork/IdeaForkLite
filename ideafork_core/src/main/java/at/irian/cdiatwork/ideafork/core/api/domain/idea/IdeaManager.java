@@ -12,9 +12,7 @@ import java.util.List;
 
 @ApplicationScoped
 @Typed(IdeaManager.class)
-public class IdeaManager implements IdeaRepository {
-    private static final long serialVersionUID = -2246005095175518718L;
-
+public class IdeaManager {
     private IdeaValidator ideaValidator;
     private IdeaRepository ideaRepository;
 
@@ -65,37 +63,26 @@ public class IdeaManager implements IdeaRepository {
         return result;
     }
 
-    @Override
     public void save(Idea entity) {
         ideaRepository.save(entity);
     }
 
-    @Override
     public void remove(Idea entity) {
-        ideaRepository.remove(entity);
+        ideaRepository.attachAndRemove(entity);
     }
 
-    @Override
     public Idea loadById(String id) {
-        return ideaRepository.loadById(id);
+        return ideaRepository.findBy(id);
     }
 
-    @Override
     public List<Idea> loadAllOfAuthor(User author) {
         return ideaRepository.loadAllOfAuthor(author);
     }
 
-    @Override
-    public List<Idea> loadAll() {
-        return ideaRepository.loadAll();
-    }
-
-    @Override
     public List<Idea> search(String searchText) {
         return ideaRepository.search(searchText);
     }
 
-    @Override
     public List<CategoryView> getHighestRatedCategories() {
         return ideaRepository.getHighestRatedCategories();
     }
