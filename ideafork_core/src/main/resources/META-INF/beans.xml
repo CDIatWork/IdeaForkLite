@@ -8,8 +8,4 @@
         <class>at.irian.cdiatwork.ideafork.core.impl.change.EntityProcessorInterceptor</class>
     </interceptors>
 
-    <decorators>
-        <class>at.irian.cdiatwork.ideafork.core.impl.repository.decorator.change.EntityChangeRepositoryDecorator</class>
-    </decorators>
-
 </beans>

@@ -48,7 +48,7 @@ public class EntityProcessorInterceptor implements Serializable {
                 if ("save".equals(methodName)) {
                     saveMethod = true;
                     validateEntityParameter = true;
-                } else if ("remove".equals(methodName)) {
+                } else if ("remove".equals(methodName) || "attachAndRemove".equals(methodName)) {
                     validateEntityParameter = true;
                 }
             }
