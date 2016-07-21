@@ -1,6 +1,5 @@
 package at.irian.cdiatwork.ideafork.ee.frontend.jaxrs.export;
 
-import at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.core.api.converter.ObjectConverter;
 import at.irian.cdiatwork.ideafork.core.api.data.view.ExportView;
 import org.apache.deltaspike.core.api.exception.control.event.ExceptionToCatchEvent;
@@ -18,14 +17,11 @@ import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import static at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat.TargetFormat.JSON;
-
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 //used to ensure a portable result across different ee-servers
 public class CustomJsonWriter implements MessageBodyWriter<Object> {
     @Inject
-    @ExternalFormat(JSON)
     private ObjectConverter objectConverter;
 
     @Inject

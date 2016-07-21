@@ -8,13 +8,11 @@ import at.irian.cdiatwork.ideafork.core.api.repository.change.EntityChangeReposi
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 
 @ApplicationScoped
 public class IdeaHistoryProcessor {
     @Inject
-    @Default
     private ObjectConverter currentObjectConverter;
 
     @Inject

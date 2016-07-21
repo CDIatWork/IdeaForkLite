@@ -1,7 +1,6 @@
 package at.irian.cdiatwork.ideafork.core.impl.config.typed;
 
 import at.irian.cdiatwork.ideafork.core.api.config.ApplicationVersion;
-import at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.core.impl.config.context.ConfigScoped;
 import org.apache.deltaspike.core.api.config.ConfigResolver;
 
@@ -41,8 +40,6 @@ public class TypedConfigHandler implements InvocationHandler {
                 return loadedValue;
             } else if (configType.equals(ApplicationVersion.class)) {
                 return new ApplicationVersion(loadedValue);
-            } else if (configType.equals(ExternalFormat.TargetFormat.class)) {
-                return ExternalFormat.TargetFormat.valueOf(loadedValue);
             } else {
                 throw new IllegalStateException(configType.getName() + " isn't supported");
             }

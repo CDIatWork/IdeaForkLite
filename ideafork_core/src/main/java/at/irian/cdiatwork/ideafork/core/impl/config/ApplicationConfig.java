@@ -2,7 +2,6 @@ package at.irian.cdiatwork.ideafork.core.impl.config;
 
 import at.irian.cdiatwork.ideafork.core.api.config.ApplicationName;
 import at.irian.cdiatwork.ideafork.core.api.config.ApplicationVersion;
-import at.irian.cdiatwork.ideafork.core.api.converter.ExternalFormat;
 import at.irian.cdiatwork.ideafork.core.impl.config.typed.TypedConfig;
 
 import javax.enterprise.inject.Produces;
@@ -17,7 +16,4 @@ public interface ApplicationConfig {
 
     @Produces
     ApplicationVersion version();
-
-    @Produces
-    ExternalFormat.TargetFormat defaultExternalFormat();
 }

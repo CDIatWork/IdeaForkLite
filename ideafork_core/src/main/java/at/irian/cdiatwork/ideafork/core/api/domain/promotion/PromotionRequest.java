@@ -8,19 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
-import javax.xml.bind.annotation.XmlElementRef;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 import static javax.persistence.TemporalType.DATE;
 
 @Entity
-@XmlRootElement //wouldn't be needed if we use jackson only
 public class PromotionRequest extends BaseEntity {
     private static final long serialVersionUID = -2824813959555007833L;
 
     @ManyToOne
-    @XmlElementRef //wouldn't be needed if we use jackson only
     private Idea ideaForPromotion;
 
     @Column(nullable = false)

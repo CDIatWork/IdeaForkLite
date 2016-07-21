@@ -1,9 +1,32 @@
 package at.irian.cdiatwork.ideafork.core.api.converter;
 
-public interface ObjectConverter {
-    <T> T toObject(String value, Class<T> targetType);
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-    String toString(Object entity);
+public class ObjectConverter {
+    public <T> T toObject(String value, Class<T> targetType) {
+        try {
+            return new ObjectMapper().readValue(value, targetType);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
-    String toString(Object entity, Class typeSafeDataView);
+    public String toString(Object entity) {
+        return toString(entity, null);
+    }
+
+    public String toString(Object entity, Class typeSafeDataView) {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            if (typeSafeDataView != null) {
+                objectMapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, false);
+                return objectMapper.writerWithView(typeSafeDataView).writeValueAsString(entity);
+            }
+            return objectMapper.writeValueAsString(entity);
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 }
