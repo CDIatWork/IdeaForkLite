@@ -1,4 +1,4 @@
-package at.irian.cdiatwork.ideafork.test.core;
+package at.irian.cdiatwork.ideafork.test.frontend.controller;
 
 import at.irian.cdiatwork.ideafork.core.impl.repository.jpa.EntityManagerProducer;
 import org.apache.deltaspike.jpa.api.entitymanager.PersistenceUnitName;
