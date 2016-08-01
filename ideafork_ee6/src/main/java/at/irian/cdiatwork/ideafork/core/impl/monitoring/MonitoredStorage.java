@@ -1,12 +1,12 @@
 package at.irian.cdiatwork.ideafork.core.impl.monitoring;
 
-import javax.enterprise.context.RequestScoped;
-import java.util.ArrayList;
+import javax.enterprise.context.ApplicationScoped;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
-@RequestScoped
+@ApplicationScoped
 public class MonitoredStorage {
-    private List<String> slowMethods = new ArrayList<String>();
+    private List<String> slowMethods = new CopyOnWriteArrayList<String>();
 
     public void recordSlowMethod(String name) {
         this.slowMethods.add(name);

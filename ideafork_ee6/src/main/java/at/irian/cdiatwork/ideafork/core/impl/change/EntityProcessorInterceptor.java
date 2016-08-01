@@ -2,15 +2,12 @@ package at.irian.cdiatwork.ideafork.core.impl.change;
 
 import at.irian.cdiatwork.ideafork.core.api.domain.BaseEntity;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
-import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaChangedEvent;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
-import at.irian.cdiatwork.ideafork.core.api.domain.role.UserChangedEvent;
 import at.irian.cdiatwork.ideafork.core.api.repository.change.EntityProcessor;
+import at.irian.cdiatwork.ideafork.core.impl.event.EntityChangedEventBroadcaster;
 import org.apache.deltaspike.core.util.ProxyUtils;
 import org.apache.deltaspike.data.api.EntityRepository;
 
-import javax.enterprise.event.Event;
-import javax.enterprise.inject.Default;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
@@ -27,12 +24,7 @@ public class EntityProcessorInterceptor implements Serializable {
     private BeanManager beanManager;
 
     @Inject
-    @Default
-    private Event<UserChangedEvent> userChangedEvent;
-
-    @Inject
-    @Default
-    private Event<IdeaChangedEvent> ideaChangedEvent;
+    private EntityChangedEventBroadcaster entityChangedEventBroadcaster;
 
     @AroundInvoke
     public Object intercept(InvocationContext ic) throws Exception {
@@ -62,9 +54,9 @@ public class EntityProcessorInterceptor implements Serializable {
 
         if (saveMethod) {
             if (parameters[0] instanceof User) {
-                broadcastUserChangedEvent((User) ic.getParameters()[0]);
+                entityChangedEventBroadcaster.broadcastUserChangedEvent((User) ic.getParameters()[0]);
             } else if (parameters[0] instanceof Idea) {
-                broadcastIdeaChangedEvent((Idea) ic.getParameters()[0]);
+                entityChangedEventBroadcaster.broadcastIdeaChangedEvent((Idea) ic.getParameters()[0]);
             }
         }
 
@@ -97,15 +89,5 @@ public class EntityProcessorInterceptor implements Serializable {
         }
 
         return null;
-    }
-
-    private void broadcastUserChangedEvent(User entity) {
-        UserChangedEvent userChangedEvent = new UserChangedEvent(entity);
-        this.userChangedEvent.fire(userChangedEvent);
-    }
-
-    private void broadcastIdeaChangedEvent(Idea entity) {
-        IdeaChangedEvent ideaChangedEvent = new IdeaChangedEvent(entity);
-        this.ideaChangedEvent.fire(ideaChangedEvent);
     }
 }

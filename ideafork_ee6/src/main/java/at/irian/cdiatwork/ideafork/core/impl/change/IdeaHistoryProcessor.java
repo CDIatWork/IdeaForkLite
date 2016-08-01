@@ -5,6 +5,7 @@ import at.irian.cdiatwork.ideafork.core.api.domain.change.EntityChange;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.IdeaChangedEvent;
 import at.irian.cdiatwork.ideafork.core.api.repository.change.EntityChangeRepository;
+import at.irian.cdiatwork.ideafork.core.impl.actor.Async;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -18,7 +19,7 @@ public class IdeaHistoryProcessor {
     @Inject
     private EntityChangeRepository entityChangeRepository;
 
-    public void onIdeaCreated(@Observes IdeaChangedEvent changedEvent) {
+    public void onIdeaCreated(@Observes @Async IdeaChangedEvent changedEvent) {
         Idea entity = changedEvent.getEntity();
         String ideaSnapshot = currentObjectConverter.toString(entity);
         EntityChange entityChange = new EntityChange(
