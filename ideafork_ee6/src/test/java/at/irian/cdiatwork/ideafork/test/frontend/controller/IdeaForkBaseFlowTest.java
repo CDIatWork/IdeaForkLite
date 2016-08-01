@@ -3,6 +3,7 @@ package at.irian.cdiatwork.ideafork.test.frontend.controller;
 import at.irian.cdiatwork.ideafork.core.api.domain.idea.Idea;
 import at.irian.cdiatwork.ideafork.core.api.domain.promotion.PromotionRequest;
 import at.irian.cdiatwork.ideafork.core.api.domain.role.User;
+import at.irian.cdiatwork.ideafork.core.api.repository.change.EntityChangeRepository;
 import at.irian.cdiatwork.ideafork.ee.backend.service.IdeaService;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.config.Pages;
 import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.controller.idea.IdeaCreateViewCtrl;
@@ -14,6 +15,7 @@ import at.irian.cdiatwork.ideafork.ee.frontend.jsf.view.model.SelectableEntity;
 import org.apache.deltaspike.cdise.api.ContextControl;
 import org.apache.deltaspike.core.api.config.view.ViewConfig;
 import org.apache.deltaspike.core.spi.scope.window.WindowContext;
+import org.apache.deltaspike.core.util.ExceptionUtils;
 import org.apache.deltaspike.testcontrol.api.junit.CdiTestRunner;
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,6 +52,12 @@ public class IdeaForkBaseFlowTest {
 
     @Inject
     private IdeaService ideaService;
+
+    @Inject
+    private TestMailService testMailService;
+
+    @Inject
+    private EntityChangeRepository entityChangeRepository;
 
     @Before
     public void initTestWindow() {
@@ -163,11 +171,51 @@ public class IdeaForkBaseFlowTest {
         foundPromotionRequests = ideaService.loadRecentIdeaPromotions(testUser, "x");
         Assert.assertNotNull(foundPromotionRequests);
         Assert.assertTrue(foundPromotionRequests.isEmpty());
+
+        int sentWelcomeMessageCount = getSentWelcomeMessageCount();
+        Assert.assertEquals(1, sentWelcomeMessageCount);
     }
 
     private void newRequest() {
         contextControl.stopContext(RequestScoped.class);
         contextControl.startContext(RequestScoped.class);
         initTestWindow();
+    }
+
+    private Integer getSentWelcomeMessageCount() {
+        return new RetryHelper<Integer>() {
+            @Override
+            protected Integer execute() {
+                Integer result = testMailService.getSentWelcomeMessageCount();
+
+                if (result == null) {
+                    return 0;
+                }
+                return result;
+            }
+        }.start();
+    }
+
+    private abstract class RetryHelper<T> {
+        private int tryCount = 0;
+
+        public T start() {
+            tryCount++;
+            T result = execute();
+
+            if (result != null || tryCount > 10) {
+                return result;
+            }
+
+            try {
+                Thread.sleep(tryCount * 20);
+            } catch (InterruptedException e) {
+                ExceptionUtils.throwAsRuntimeException(e);
+            }
+
+            return start();
+        }
+
+        protected abstract T execute();
     }
 }

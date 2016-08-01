@@ -17,6 +17,8 @@
         <myfaces-core.version>2.1.14</myfaces-core.version>
         <tomee-api.version>6.0-6</tomee-api.version>
         <owb.version>1.2.8</owb.version>
+
+        <spring.version>4.1.7.RELEASE</spring.version>
     </properties>
 
     <repositories>
@@ -192,6 +194,38 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.10</version>
@@ -256,6 +290,7 @@
                             <include>entities.xml</include>
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
+                            <include>applicationContext.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                             <include>services/org.apache.deltaspike.core.spi.config.ConfigValidator</include>
@@ -328,6 +363,7 @@
                             <include>entities.xml</include>
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
+                            <include>applicationContext.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                             <include>services/org.apache.deltaspike.core.spi.config.ConfigValidator</include>
@@ -402,6 +438,7 @@
                             <include>entities.xml</include>
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
+                            <include>applicationContext.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                             <include>services/org.apache.deltaspike.core.spi.config.ConfigValidator</include>
@@ -535,6 +572,7 @@
                             <include>entities.xml</include>
                             <include>validation.xml</include>
                             <include>relative-resources.xml</include>
+                            <include>applicationContext.xml</include>
                             <include>services/javax.enterprise.inject.spi.Extension</include>
                             <include>services/org.apache.deltaspike.core.api.projectstage.ProjectStageHolder</include>
                             <include>services/org.apache.deltaspike.core.spi.config.ConfigValidator</include>
